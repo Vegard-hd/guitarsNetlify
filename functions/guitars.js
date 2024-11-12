@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const guitars = require("../guitarData.js");
-
+const deleteGuitar = require("../guitarService.js");
 exports.handler = async (event) => {
   const { httpMethod, body } = event;
 
@@ -20,6 +20,15 @@ exports.handler = async (event) => {
     return {
       statusCode: 201,
       body: JSON.stringify(newGuitar),
+    };
+  }
+  if (httpMethod === "DELETE") {
+    const guitar = JSON.parse(body);
+    deleteGuitar(guitar);
+
+    return {
+      statusCode: 200,
+      body: "Deleted guitar",
     };
   }
 
